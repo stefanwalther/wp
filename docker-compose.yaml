@@ -14,7 +14,7 @@ services:
 
   db:
     image: mysql:5.7
-    platform: linux/amd64
+#    platform: linux/amd64
     environment:
       MYSQL_DATABASE: exampledb
       MYSQL_USER: exampleuser
@@ -27,7 +27,7 @@ services:
 
   adminer:
     image: adminer:latest
-    platform: linux/amd64
+#    platform: linux/amd64
     ports:
       - "8080:8080"
 
