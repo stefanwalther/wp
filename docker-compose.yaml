@@ -1,0 +1,36 @@
+services:
+  wordpress:
+    image: wordpress:php8.3-apache
+#    platform: linux/amd64
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - ./data/wp/wordpress_data:/var/www/html
+
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_ROOT_PASSWORD: rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./.config/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./data/mysql_logs:/var/log/mysql
+
+  adminer:
+    image: adminer:latest
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+
+volumes:
+  wordpress_data:
+  db_data:
